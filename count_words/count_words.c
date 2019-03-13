@@ -6,8 +6,7 @@
 char* get_new_file(char *str)
 {
     char c;
-    char tmp[] = "tmp";
-    char *t = tmp;
+    char *tmp = "tmp";
 
     FILE *fp  = fopen(str, "r+");
     FILE *ftp = fopen(tmp, "w+");
@@ -28,7 +27,7 @@ char* get_new_file(char *str)
     fclose(fp);
     fclose(ftp);
 
-    return t;
+    return tmp;
 }
 struct cwords*save_words(char *str)
 {

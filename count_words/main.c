@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
     count_times(p);
     sort_words(p);
     print_result(p);
+    remove(str);
 
     return 0;
 }
