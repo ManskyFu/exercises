@@ -16,6 +16,12 @@ int main(int argc, char *argv[])
     sscanf(argv[2], "%lf", &b);
     sscanf(argv[3], "%lf", &c);
 
+    if (!a)
+    {
+        puts("Error : check the coefficient of square term!");
+        return 1;
+    }
+
     delta = b * b - 4 * a * c;
 
     if (delta < 0)
