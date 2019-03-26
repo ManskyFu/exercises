@@ -20,6 +20,9 @@ int main(int argc, char *argv[])
         puts("Error: check your file!");
         return 1;
     }
+
+    remove("fileout.txt");
+
     ft = fopen("fileout.txt", "w+");
 
     while (fscanf(fp, "%s", word) != EOF)
