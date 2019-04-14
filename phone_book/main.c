@@ -81,6 +81,11 @@ int main(int argc, char *argv[])
             return 1;
         }
         exe_status = get_bookmember(argv[2]);
+        break;
+    case 'h':
+        exe_status = SUCCESS;
+        help_info();
+        return 0;
     }
     if (exe_status == FAILURE)
         return 1;

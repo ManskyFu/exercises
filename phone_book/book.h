@@ -20,5 +20,6 @@ int add_people(char *, pbook *);
 int add_book(char *);
 int del_book(char *);
 int get_bookmember(char *);
+void help_info(void);
 
 #endif

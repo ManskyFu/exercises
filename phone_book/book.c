@@ -24,6 +24,7 @@ char get_cmd(char *cmd)
     case 'f':                   // find a people
     case 'l':                   // look list
     case 'L':                   // look members in one book
+    case 'h':                   // help infomation 
         return ch;
     }
     return WRONGCMD;
@@ -38,23 +39,6 @@ int get_booklist(void)
 
     while (fscanf(fp, "%30s", listname) != EOF)
         puts(listname);
-
-    return SUCCESS;
-}
-int write_booklist(char *listname)
-{
-    char listname2[30];
-    FILE *fp = fopen("booklist", "r");
-
-    if (fp == NULL)
-        return FAILURE;
-
-    while (fscanf(fp, "%30s", listname2) != EOF)
-        if (strncmp(listname, listname2, 30))
-            return WRONGCMD;
-    fclose(fp);
-    fp = fopen("booklist", "w");
-    fprintf(fp, "%s ", listname);
 
     return SUCCESS;
 }
@@ -141,17 +125,11 @@ int add_people(char *book_name, pbook *pb)
 }
 int add_book(char *book_name)
 {
-    FILE *fp = fopen(book_name, "r");
-    FILE *ft = fopen("booklist", "r");
+    FILE *fp = fopen(book_name, "w+");
+    FILE *ft = fopen("booklist", "a");
 
-    if (fp != NULL)
-    {
-        fclose(fp);
-        return FAILURE;
-    }
-    fclose(fp);
-    fp = fopen(book_name, "w+");
     fprintf(ft, "%s ", book_name);
+
     fclose(ft);
     fclose(fp);
 
@@ -190,4 +168,16 @@ int get_bookmember(char *book_name)
         printf("%s  %s\n", tmp.name, tmp.number);
 
     return SUCCESS;
+}
+void help_info(void)
+{
+    puts("  -h                          help information");
+    puts("  -N book_name                add a new book");
+    puts("  -n book_name people number  add a new people");
+    puts("  -D book_name                delete a book");
+    puts("  -d book_name people number  delete a people");
+    puts("  -F book_name number         find a person");
+    puts("  -f book_name people         find a number");
+    puts("  -l                          get all book names");
+    puts("  -L book_name                get all members in one book");
 }
