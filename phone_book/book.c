@@ -93,8 +93,8 @@ int del_people(char *book_name, pbook *pb)
         return FAILURE;
 
     while (fscanf(fp, "%30s %15s", tmpname, tmpnum) != EOF)
-        if (strncmp(tmpname, pb->name, 30) || strncmp(tmpnum, pb->number, 15))
-            fprintf(ft, "%s %s ", pb->name, pb->number);
+        if (strncmp(tmpname, pb->name, 30) && strncmp(tmpnum, pb->number, 15))
+            fprintf(ft, "%s %s ", tmpname, tmpnum);
 
     fclose(ft);
     fclose(fp);
@@ -105,20 +105,11 @@ int del_people(char *book_name, pbook *pb)
 }
 int add_people(char *book_name, pbook *pb)
 {
-    char tmpname[30], tmpnum[15];
-
     FILE *fp = fopen(book_name, "a");
     if (fp == NULL)
         return FAILURE;
 
-    while (fscanf(fp, "%30s %15s", tmpname, tmpnum) != EOF)
-        if (strncmp(pb->name, tmpname, 30) || strncmp(pb->number, tmpnum, 15))
-            fprintf(fp, "%s %s ", tmpname, tmpnum);
-        else
-        {
-            fclose(fp);
-            return FAILURE;
-        }
+    fprintf(fp, "%s %s ", pb->name, pb->number);
 
     fclose(fp);
     return SUCCESS;
@@ -152,6 +143,7 @@ int del_book(char *book_name)
     fclose(fp);
     remove("booklist");
     rename("tbook", "booklist");
+    remove(book_name);
 
     return SUCCESS;
 }
@@ -165,12 +157,13 @@ int get_bookmember(char *book_name)
         return FAILURE;
 
     while (fscanf(fp, "%30s %15s", tmp.name, tmp.number) != EOF)
-        printf("%s  %s\n", tmp.name, tmp.number);
+        printf("%30s  %15s\n", tmp.name, tmp.number);
 
     return SUCCESS;
 }
 void help_info(void)
 {
+    puts("      Command                     Operations");
     puts("  -h                          help information");
     puts("  -N book_name                add a new book");
     puts("  -n book_name people number  add a new people");
