@@ -10,10 +10,8 @@ char get_cmd(char *cmd)
     sscanf(cmd, "%c%c", &c, &ch);
 
     if (c != '-')
-    {
-        puts("Error: check your command!");
         return WRONGCMD;
-    }
+
     switch (ch)
     {
     case 'N':                   // add a new book 
@@ -93,7 +91,7 @@ int del_people(char *book_name, pbook *pb)
         return FAILURE;
 
     while (fscanf(fp, "%30s %15s", tmpname, tmpnum) != EOF)
-        if (strncmp(tmpname, pb->name, 30) && strncmp(tmpnum, pb->number, 15))
+        if (strncmp(tmpname, pb->name, 30) || strncmp(tmpnum, pb->number, 15))
             fprintf(ft, "%s %s ", tmpname, tmpnum);
 
     fclose(ft);
@@ -156,8 +154,9 @@ int get_bookmember(char *book_name)
     if (fp == NULL)
         return FAILURE;
 
+    printf("%30s\t%15s\n\n", "People", "Phone Number");
     while (fscanf(fp, "%30s %15s", tmp.name, tmp.number) != EOF)
-        printf("%30s  %15s\n", tmp.name, tmp.number);
+        printf("%30s \t%15s\n", tmp.name, tmp.number);
 
     return SUCCESS;
 }

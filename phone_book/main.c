@@ -10,7 +10,10 @@ int main(int argc, char *argv[])
 
     char ch = get_cmd(argv[1]);
     if (ch == WRONGCMD)
+    {
+        puts("Error: check your command!");
         return 1;
+    }
 
     switch (ch)
     {
